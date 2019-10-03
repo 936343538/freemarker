@@ -15,7 +15,7 @@ public class ${className}Controller extends BaseController<${className}Service, 
 
     @ApiVersion("1.0.0")
     @HystrixCommand(defaultFallback = "objectFallBack")
-    @RequestMapping(value = "getSlideshowListForUser")
+    @RequestMapping(value = "method")
     public Result<Object> method() {
         Result<Object> result = new Result<>();
         try {

@@ -1,6 +1,7 @@
 package com.it.zhifa;
 
 
+import com.it.utils.PropertiesUtils;
 import com.it.utils.StringUtils;
 
 import java.lang.reflect.Field;
@@ -13,10 +14,10 @@ public class Settings {
     private String pPackage = "com.example.demo";
     private String projectComment;
     private String author;
-    private String path1 = "com";
-    private String path2 = "example";
-    private String path3 = "demo";
-    private String pathAll;
+//    private String path1;
+//    private String path2;
+//    private String path3;
+//    private String pathAll;
 
     public Settings(String project, String pPackage, String projectComment, String author) {
         if (StringUtils.isNotBlank(project)) {
@@ -26,12 +27,12 @@ public class Settings {
             this.pPackage = pPackage;
         }
         this.projectComment = projectComment;
-        this.author = author;
+        this.author = PropertiesUtils.customMap.get("author");
         String[] paths = pPackage.split("\\.");
-        path1 = paths[0];
-        path2 = paths.length > 1 ? paths[1] : path2;
-        path3 = paths.length > 2 ? paths[2] : path3;
-        pathAll = pPackage.replaceAll(".", "/");
+//        path1 = paths[0];
+//        path2 = paths.length > 1 ? paths[1] : path2;
+//        path3 = paths.length > 2 ? paths[2] : path3;
+//        pathAll = pPackage.replaceAll(".", "\\");
     }
 
     public Map<String, Object> getSettingMap() {
@@ -79,35 +80,35 @@ public class Settings {
         this.author = author;
     }
 
-    public String getPath1() {
-        return path1;
-    }
-
-    public void setPath1(String path1) {
-        this.path1 = path1;
-    }
-
-    public String getPath2() {
-        return path2;
-    }
-
-    public void setPath2(String path2) {
-        this.path2 = path2;
-    }
-
-    public String getPath3() {
-        return path3;
-    }
-
-    public void setPath3(String path3) {
-        this.path3 = path3;
-    }
-
-    public String getPathAll() {
-        return pathAll;
-    }
-
-    public void setPathAll(String pathAll) {
-        this.pathAll = pathAll;
-    }
+//    public String getPath1() {
+//        return path1;
+//    }
+//
+//    public void setPath1(String path1) {
+//        this.path1 = path1;
+//    }
+//
+//    public String getPath2() {
+//        return path2;
+//    }
+//
+//    public void setPath2(String path2) {
+//        this.path2 = path2;
+//    }
+//
+//    public String getPath3() {
+//        return path3;
+//    }
+//
+//    public void setPath3(String path3) {
+//        this.path3 = path3;
+//    }
+//
+//    public String getPathAll() {
+//        return pathAll;
+//    }
+//
+//    public void setPathAll(String pathAll) {
+//        this.pathAll = pathAll;
+//    }
 }

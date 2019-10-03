@@ -10,7 +10,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,8 @@ public class Generator {
     public Generator(String templatePath, String outPath) throws Exception {
         this.templatePath = templatePath;
         this.outPath = PropertiesUtils.customMap.get("outPath");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        PropertiesUtils.customMap.put("date",simpleDateFormat.format(new Date()));
         configuration = new Configuration();
         //指定模板加载器
         configuration.setTemplateLoader(new FileTemplateLoader(new File(templatePath)));

@@ -1,33 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${package}.mapper.${className}Mapper">
-  <resultMap id="BaseResultMap" type="${package}.entity.${className}Entity">
+<mapper namespace="${package}.entity.mapper.${className}EntityMapper">
+    <resultMap id="BaseResultMap" type="${package}.entity.${className}Entity">
     <#list table.columns as column>
-    <!--${column.columnComment}-->
-    <#if column.columnKey="1">
-      <id column="${column.columnName}" jdbcType="${column.columnDbType}" property="${column.columnName2}"/>
-    <#else >
-      <result column="${column.columnName}" jdbcType="${column.columnDbType}" property="${column.columnName2}"/>
-    </#if>
+        <!--${column.columnComment}-->
+        <#if column.columnKey="1">
+        <id column="${column.columnName}" jdbcType="${column.columnDbType}" property="${column.columnName2}"/>
+        <#else >
+        <result column="${column.columnName}" jdbcType="${column.columnDbType}" property="${column.columnName2}"/>
+        </#if>
     </#list>
-        </resultMap>
-        <sql id="Base_Column_List">
-          <#list table.columns as column>
-          ${column.columnName}<#if column_has_next>,</#if>
-          </#list>
-        </sql>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <#list table.columns as column>
+        ${column.columnName}<#if column_has_next>,</#if>
+        </#list>
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ${table.name}
+        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2}}<#break></#if></#list>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from ${table.name}
+        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2}}<#break></#if></#list>
+    </delete>
+    <insert id="insert" parameterType="${package}.entity.${className}Entity">
+        insert into ${table.name} (<include refid="Base_Column_List"/>)
+        values (
+        <#list table.columns as column>
+            ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#if column_has_next>,</#if>
+        </#list>
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="${package}.entity.${className}Entity">
+        insert into ${table.name}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <#list table.columns as column>
+        <if test="${column.columnName2} != null">
+            ${column.columnName}<#if column_has_next>,</#if>
+        </if>
+        </#list>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <#list table.columns as column>
+            <if test="${column.columnName2} != null">
+            ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#if column_has_next>,</#if>
+            </if>
+        </#list>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="${package}.entity.${className}Entity">
+        update ${table.name}
+        <set>
+    <#list table.columns as column>
+        <#if column.columnKey="0">
+        <if test="${column.columnName2} != null">
+            ${column.columnName} = ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#if column_has_next>,</#if>
+        </if>
+        </#if>
+    </#list>
+        </set>
+        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#break></#if></#list>
+    </update>
+    <update id="updateByPrimaryKey" parameterType="${package}.entity.${className}Entity">
+        update ${table.name}
+        <set>
+    <#list table.columns as column>
+        <#if column.columnKey="0">
+            ${column.columnName} = ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#if column_has_next>,</#if>
+        </#if>
+    </#list>
+        </set>
+        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#break></#if></#list>
+    </update>
 </mapper>
-
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from ${table.name}
-    where
-    <#list table.columns as column>
-    <#if column.columnKey="1">
-      <id column="${column.columnName}" jdbcType="${column.columnDbType}" property="${column.columnName2}"/>
-    ${column.columnName} = ${column.columnName2},jdbcType=${column.columnType}
-    </#if>
-    </#list>
-  </select>
+    

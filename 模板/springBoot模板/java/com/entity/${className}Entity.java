@@ -2,7 +2,7 @@ package ${package}.entity;
 
 /**
  * @author ${author}
- * @date
+ * @date ${date}
  */
 public class ${className}Entity extends BaseEntity {
 
