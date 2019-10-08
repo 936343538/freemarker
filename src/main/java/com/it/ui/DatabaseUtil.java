@@ -47,8 +47,7 @@ public class DatabaseUtil extends JFrame {
 		jTextField3 = new JTextField();
 		JLabel jLabel5 = new JLabel();
 
-		//setTitle("\u4f20\u667a\u5218\u5907\u4ee3\u7801\u751f\u6210\u56682.3");
-		setTitle("代码生成器v1.0");
+		setTitle("菜鳥工程師代码生成器v1.0");
 		setBackground(new java.awt.Color(204, 255, 204));
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosed(java.awt.event.WindowEvent evt) {

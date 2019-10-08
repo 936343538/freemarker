@@ -3,7 +3,7 @@ package com.it.zhifa.db;
 //数据库实体类
 public class DataBase {
 
-    private static String mysqlUrl = "jdbc:mysql://[ip]:[port]/[db]?useUnicode=true&amp&characterEncoding=UTF8";
+    private static String mysqlUrl = "jdbc:mysql://[ip]:[port]/[db]?useUnicode=true&amp&characterEncoding=UTF8&serverTimezone=UTC";
     private static String oracleUrl = "jdbc:oracle:thin:@[ip]:[port]:[db]";
 
     private String dbType;//数据库类型
@@ -11,25 +11,34 @@ public class DataBase {
     private String userName;
     private String passWord;
     private String url;
+    private String dbName;//数据库名称
+    private String tableName;//表名
 
-    public DataBase() {}
+    public DataBase() {
+    }
 
     public DataBase(String dbType) {
-        this(dbType,"127.0.0.1","3306","");
+        this(dbType, "127.0.0.1", "3306", "");
     }
 
-    public DataBase(String dbType,String db) {
-        this(dbType,"127.0.0.1","3306",db);
+    public DataBase(String dbType, String db) {
+        this(dbType, "127.0.0.1", "3306", db);
     }
 
-    public DataBase(String dbType,String ip,String port,String db) {
+    public DataBase(String dbType, String dbName, String tableName) {
+        this(dbType, "127.0.0.1", "3306", dbName);
+        this.dbName = dbName;
+        this.tableName = tableName;
+    }
+
+    public DataBase(String dbType, String ip, String port, String dbName) {
         this.dbType = dbType;
-        if("MYSQL".endsWith(dbType.toUpperCase())) {
-            this.driver="com.mysql.jdbc.Driver";
-            this.url=mysqlUrl.replace("[ip]",ip).replace("[port]",port).replace("[db]",db);
-        }else{
-            this.driver="oracle.jdbc.driver.OracleDriver";
-            this.url=oracleUrl.replace("[ip]",ip).replace("[port]",port).replace("[db]",db);
+        if ("MYSQL".endsWith(dbType.toUpperCase())) {
+            this.driver = "com.mysql.jdbc.Driver";
+            this.url = mysqlUrl.replace("[ip]", ip).replace("[port]", port).replace("[db]", dbName);
+        } else {
+            this.driver = "oracle.jdbc.driver.OracleDriver";
+            this.url = oracleUrl.replace("[ip]", ip).replace("[port]", port).replace("[db]", dbName);
         }
     }
 
@@ -71,5 +80,37 @@ public class DataBase {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public static String getMysqlUrl() {
+        return mysqlUrl;
+    }
+
+    public static void setMysqlUrl(String mysqlUrl) {
+        DataBase.mysqlUrl = mysqlUrl;
+    }
+
+    public static String getOracleUrl() {
+        return oracleUrl;
+    }
+
+    public static void setOracleUrl(String oracleUrl) {
+        DataBase.oracleUrl = oracleUrl;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }

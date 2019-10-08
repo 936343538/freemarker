@@ -75,58 +75,61 @@ public class DataBaseUtils {
      * @return
      * @throws Exception
      */
-    public static List<Table> getDbInfo(DataBase db, String tableNamePattern) throws Exception {
+    public static List<Table> getDbInfo(DataBase db) throws Exception {
         //1.获取连接
         Connection connection = getConnection(db);
         //2.获取元数据
         DatabaseMetaData metaData = connection.getMetaData();
-        //3.获取所有的数据库表信息
-        ResultSet tables = metaData.getTables(tableNamePattern, null, null, new String[]{"TABLE"});
+        //3.获取所有的数据库表信息  dbName：指定数据库
+        String dbName = db.getDbName();
+//        ResultSet tables = metaData.getTables(dbName, null, null, new String[]{"TABLE"});
 
         List<Table> list = new ArrayList<>();
 
         try {
-            while (tables.next()) {
-                Table table = new Table();
-                String tableName = tables.getString("TABLE_NAME");//表名称
-                String className = removePrefix(tableName);//类名
-                String remarks = tables.getString("REMARKS");//备注
-                ResultSet primaryKeys = metaData.getPrimaryKeys(tableNamePattern, null, tableName);//主键
-                StringBuilder keys = new StringBuilder();
-                while (primaryKeys.next()) {
-                    String keyName = primaryKeys.getString("COLUMN_NAME");
-                    keys.append(keyName).append(",");
-                }
-                table.setName(tableName);
-                table.setName2(className);
-                table.setComment(remarks);
-                table.setKey(keys.toString());
-                list.add(table);
-                //处理表中的所有字段
-                ResultSet columns = metaData.getColumns(tableNamePattern, null, tableName, null);
-                ArrayList<Column> columnsList = new ArrayList<>();
-                while (columns.next()) {
-                    Column column = new Column();
-                    String columnName = columns.getString("COLUMN_NAME");//列名
-                    column.setColumnName(columnName);
-                    column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
-                    String typeName = columns.getString("TYPE_NAME");//数据库类型
-                    column.setColumnDbType(typeName);
-                    column.setColumnType(PropertiesUtils.customMap.get(typeName));
-                    String columnsRemarks = columns.getString("REMARKS");
-                    column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
-                    //如果该列是主键
-                    String pri = "0";
-                    if (StringUtils.contains(columnName, table.getKey().split(","))) {
-                        pri = "1";
-                    }
-                    column.setColumnKey(pri);
-                    columnsList.add(column);
-                }
-                table.setColumns(columnsList);
+//            while (tables.next()) {
+            Table table = new Table();
+//                String tableName = tables.getString("TABLE_NAME");//表名称
+            String tableName = db.getTableName();//表名称
+            String className = removePrefix(tableName);//类名
+//                String remarks = tables.getString("REMARKS");//备注
+            ResultSet primaryKeys = metaData.getPrimaryKeys(dbName, null, tableName);//主键
+            StringBuilder keys = new StringBuilder();
+            while (primaryKeys.next()) {
+                String keyName = primaryKeys.getString("COLUMN_NAME");
+                keys.append(keyName).append(",");
             }
+            table.setName(tableName);
+            table.setName2(className);
+            String remarks = "";
+            table.setComment(remarks);
+            table.setKey(keys.toString());
+            list.add(table);
+            //处理表中的所有字段
+            ResultSet columns = metaData.getColumns(dbName, null, tableName, null);
+            ArrayList<Column> columnsList = new ArrayList<>();
+            while (columns.next()) {
+                Column column = new Column();
+                String columnName = columns.getString("COLUMN_NAME");//列名
+                column.setColumnName(columnName);
+                column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
+                String typeName = columns.getString("TYPE_NAME");//数据库类型
+                column.setColumnDbType(typeName);
+                column.setColumnType(PropertiesUtils.customMap.get(typeName));
+                String columnsRemarks = columns.getString("REMARKS");
+                column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
+                //如果该列是主键
+                String pri = "0";
+                if (StringUtils.contains(columnName, table.getKey().split(","))) {
+                    pri = "1";
+                }
+                column.setColumnKey(pri);
+                columnsList.add(column);
+            }
+            table.setColumns(columnsList);
+//            }
         } finally {
-            tables.close();
+//            tables.close();
             connection.close();
         }
         return list;
@@ -142,7 +145,7 @@ public class DataBaseUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        DataBase dataBase = new DataBase("MYSQL", "pinyougoudb");
+        DataBase dataBase = new DataBase("MYSQL", "euler_tld", "bf_slideshow");
         dataBase.setUserName("root");
         dataBase.setPassWord("rootroot");
         List<Table> tbAddress = DataBaseUtils.getDbInfo(dataBase, "pinyougoudb");

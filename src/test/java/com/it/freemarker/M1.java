@@ -25,9 +25,9 @@ public class M1 {
         //设置连接属性,使得可获取到表的REMARK(备注)
         props.put("remarksReporting", "true");
         props.put("user", "root");
-        props.put("password", "rootroot");
+        props.put("password", "hongzf");
         conn = java.sql.DriverManager.
-                getConnection("jdbc:mysql://10.188.179.17:3306/auler_tld?characterEncoding=utf8&useUnicode=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false", props);
+                getConnection("jdbc:mysql://localhost:3306/?characterEncoding=utf8&useUnicode=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false", props);
     }
 
     /**

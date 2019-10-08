@@ -58,8 +58,7 @@ public class CodeUtil extends JFrame {
 		jComboBox1 = new JComboBox();
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		//setTitle("\u4f20\u667a\u5218\u5907\u4ee3\u7801\u751f\u6210\u5668 V2.3");
-		setTitle("代码生成器v1.0");
+		setTitle("菜鳥攻城獅代码生成器v1.0");
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowActivated(java.awt.event.WindowEvent evt) {
 				formWindowActivated(evt);
@@ -521,21 +520,22 @@ public class CodeUtil extends JFrame {
 //		System.out.println(db);
 		GeneratorFacade gf = new GeneratorFacade(templetPath,outpath,settings,db);
 		try {
-			gf.generatorByTable(db,"auler_tld");
+			gf.generatorByTable(db);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				DataBase db = new DataBase("mysql","auler_tld");
+//		java.awt.EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+				//数据库类型，数据库名称，表名
+				DataBase db = new DataBase("mysql","euler_tld","bf_slideshow");
 				db.setUserName("root");
-				db.setPassWord("rootroot");
+				db.setPassWord("hongzf");
 				new CodeUtil(db,null).setVisible(true);
-			}
-		});
+//			}
+//		});
 	}
 
 }

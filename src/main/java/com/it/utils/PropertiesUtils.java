@@ -16,7 +16,10 @@ public class PropertiesUtils {
             for (File file : files) {
                 if(file.getName().endsWith(".properties")) {
                     Properties prop = new Properties();
-                    prop.load(new FileInputStream(file));
+                    FileInputStream fileInputStream = new FileInputStream(file);
+                    //處理中文亂碼問題
+                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
+                    prop.load(inputStreamReader);
                     customMap.putAll((Map) prop);
                 }
             }

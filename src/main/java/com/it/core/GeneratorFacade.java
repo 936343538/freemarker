@@ -31,9 +31,9 @@ public class GeneratorFacade {
     }
 
     //针对数据库表生成
-    public void generatorByTable(DataBase db, String tableName) throws Exception {
+    public void generatorByTable(DataBase db) throws Exception {
         //查询数据库获取所有表信息
-        List<Table> tableList = DataBaseUtils.getDbInfo(db, tableName);
+        List<Table> tableList = DataBaseUtils.getDbInfo(db);
         for (Table table : tableList) {
             //根据数据库表信息，构造数据模型并生成代码
 

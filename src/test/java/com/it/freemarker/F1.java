@@ -1,6 +1,5 @@
 package com.it.freemarker;
 
-import com.it.zhifa.db.Table;
 import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
