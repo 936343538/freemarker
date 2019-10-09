@@ -114,7 +114,8 @@ public class DataBaseUtils {
                 column.setColumnName(columnName);
                 column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
                 String typeName = columns.getString("TYPE_NAME");//数据库类型
-                column.setColumnDbType(typeName);
+                String tyName = MySql2JdbcTypeUtils.jdbcTypeMap.get(typeName);
+                column.setColumnDbType(tyName==null?typeName:tyName);
                 column.setColumnType(PropertiesUtils.customMap.get(typeName));
                 String columnsRemarks = columns.getString("REMARKS");
                 column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
@@ -148,7 +149,7 @@ public class DataBaseUtils {
         DataBase dataBase = new DataBase("MYSQL", "euler_tld", "bf_slideshow");
         dataBase.setUserName("root");
         dataBase.setPassWord("rootroot");
-        List<Table> tbAddress = DataBaseUtils.getDbInfo(dataBase, "pinyougoudb");
+        List<Table> tbAddress = DataBaseUtils.getDbInfo(dataBase);
         for (Table address : tbAddress) {
             System.out.println(address);
         }

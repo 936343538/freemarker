@@ -42,6 +42,19 @@ public class DataBase {
         }
     }
 
+    public DataBase(String dbType, String ip, String port, String dbName, String tableName) {
+        this.dbType = dbType;
+        this.dbName = dbName;
+        this.tableName = tableName;
+        if ("MYSQL".endsWith(dbType.toUpperCase())) {
+            this.driver = "com.mysql.jdbc.Driver";
+            this.url = mysqlUrl.replace("[ip]", ip).replace("[port]", port).replace("[db]", dbName);
+        } else {
+            this.driver = "oracle.jdbc.driver.OracleDriver";
+            this.url = oracleUrl.replace("[ip]", ip).replace("[port]", port).replace("[db]", dbName);
+        }
+    }
+
     public String getDbType() {
         return dbType;
     }

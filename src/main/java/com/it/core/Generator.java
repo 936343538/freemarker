@@ -72,13 +72,4 @@ public class Generator {
         template.process(dataModel, out);
         return out.toString();
     }
-
-    public static void main(String[] args) throws Exception {
-        String templatePath = "/Users/zhifa/IdeaProjects/freemarker/模板/springBoot 模板";
-        String outPath = "/Users/zhifa/Downloads";
-        Generator generator = new Generator(templatePath,outPath);
-        Map map = new HashMap();
-        map.put("name","java");
-        generator.scanTemplatesAndProcess(map);
-    }
 }

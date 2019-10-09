@@ -28,7 +28,7 @@ public class Settings {
         }
         this.projectComment = projectComment;
         this.author = PropertiesUtils.customMap.get("author");
-        String[] paths = pPackage.split("\\.");
+//        String[] paths = pPackage.split("\\.");
 //        path1 = paths[0];
 //        path2 = paths.length > 1 ? paths[1] : path2;
 //        path3 = paths.length > 2 ? paths[2] : path3;
