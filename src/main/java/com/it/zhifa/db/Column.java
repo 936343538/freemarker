@@ -10,6 +10,7 @@ public class Column {
 	private String columnDbType;//列数据库类型
 	private String columnComment;//列备注D
 	private String columnKey;//是否是主键
+	private String columnSize;//是否是主键
 
 	public String getColumnName() {
 		return columnName;
@@ -59,15 +60,11 @@ public class Column {
 		this.columnKey = columnKey;
 	}
 
-	@Override
-	public String toString() {
-		return "Column{" +
-				"columnName='" + columnName + '\'' +
-				", columnName2='" + columnName2 + '\'' +
-				", columnType='" + columnType + '\'' +
-				", columnDbType='" + columnDbType + '\'' +
-				", columnComment='" + columnComment + '\'' +
-				", columnKey='" + columnKey + '\'' +
-				'}';
+	public String getColumnSize() {
+		return columnSize;
+	}
+
+	public void setColumnSize(String columnSize) {
+		this.columnSize = columnSize;
 	}
 }

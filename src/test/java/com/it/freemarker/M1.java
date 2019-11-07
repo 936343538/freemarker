@@ -25,9 +25,12 @@ public class M1 {
         //设置连接属性,使得可获取到表的REMARK(备注)
         props.put("remarksReporting", "true");
         props.put("user", "root");
-        props.put("password", "hongzf");
+        props.put("password", "rootroot");
+        props.setProperty("remarks", "true"); //设置可以获取remarks信息
+        props.setProperty("useInformationSchema", "true");//设置可以获取tables remarks信息
         conn = java.sql.DriverManager.
-                getConnection("jdbc:mysql://localhost:3306/?characterEncoding=utf8&useUnicode=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false", props);
+                getConnection("jdbc:mysql://localhost:3306/euler_tld?characterEncoding=utf8&useUnicode=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false", props);
+
     }
 
     /**
@@ -103,20 +106,20 @@ public class M1 {
          *      tableNamePattern {null:所有表, "":目标表}
          *      types {TABLE:表,VIEW:视图}
          */
-//        ResultSet tablers = metaData.getTables("auler_tld", null, null, new String[]{"TABLE"});
+        ResultSet tablers = metaData.getTables("euler_tld", null, "bf_task", new String[]{"TABLE"});
         //拼装table
-//        while (tablers.next()) {
+        while (tablers.next()) {
 //            //所属数据库
-////            System.out.println(tablers.getString(1));
+//            System.out.println(tablers.getString(1));
 //            //所属schema
-////            System.out.println(tablers.getString(2));
+//            System.out.println(tablers.getString(2));
 //            //表名
 //            System.out.println(tablers.getString(3));
 //            //数据库表类型
-////            System.out.println(tablers.getString(4));
+//            System.out.println(tablers.getString(4));
 //            //数据库表备注
-////            System.out.println(tablers.getString(5));
-//        }
+            System.out.println(tablers.getString("REMARKS"));
+        }
 //        ResultSet primaryKeys = metaData.getPrimaryKeys("auler_tld", null, "tb_address");//主键
 //        StringBuilder keys = new StringBuilder();
 //        while (primaryKeys.next()) {
@@ -127,13 +130,15 @@ public class M1 {
         /**
          * catalog: 如果 null ,数据库字段查出来会重复,所以这个需要指定数据库 猜想:未指定,扫描所有数据库,发现相同的表重复生成
          */
-        ResultSet columns = metaData.getColumns("auler_tld", null, "tb_address", null);
-        ArrayList<Column> columnsList = new ArrayList<>();
+        ResultSet columns = metaData.getColumns("euler_tld", null, "bf_task", null);
+//        ArrayList<Column> columnsList = new ArrayList<>();
         while (columns.next()) {
             Column column = new Column();
             String columnName = columns.getString("COLUMN_NAME");//列名
             column.setColumnName(columnName);
-            System.out.println(columnName);
+            String column_size = columns.getString("COLUMN_SIZE");//字段长度
+//            System.out.println(column_size);
+//            System.out.println("========");
             column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
             String typeName = columns.getString("TYPE_NAME");//数据库类型
             column.setColumnDbType(typeName);

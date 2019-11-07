@@ -31,6 +31,8 @@ public class DataBaseUtils {
         props.put("remarksReporting", "true");
         props.put("user", db.getUserName());
         props.put("password", db.getPassWord());
+        props.put("remarks", "true"); //设置可以获取remarks信息
+        props.put("useInformationSchema", "true");//设置可以获取tables remarks信息
 //        Class.forName(db.getDriver());//注册驱动
         //jdbc:mysql://127.0.0.1:3306/?useUnicode=true&amp;characterEncoding=UTF8
         return DriverManager.getConnection(db.getUrl(), props);
@@ -82,8 +84,7 @@ public class DataBaseUtils {
         DatabaseMetaData metaData = connection.getMetaData();
         //3.获取所有的数据库表信息  dbName：指定数据库
         String dbName = db.getDbName();
-//        ResultSet tables = metaData.getTables(dbName, null, null, new String[]{"TABLE"});
-
+        ResultSet tables = metaData.getTables(dbName, null, db.getTableName(), new String[]{"TABLE"});
         List<Table> list = new ArrayList<>();
 
         try {
@@ -92,7 +93,9 @@ public class DataBaseUtils {
 //                String tableName = tables.getString("TABLE_NAME");//表名称
             String tableName = db.getTableName();//表名称
             String className = removePrefix(tableName);//类名
-//                String remarks = tables.getString("REMARKS");//备注
+            while (tables.next()) {
+                table.setComment(tables.getString("REMARKS"));
+            }
             ResultSet primaryKeys = metaData.getPrimaryKeys(dbName, null, tableName);//主键
             StringBuilder keys = new StringBuilder();
             while (primaryKeys.next()) {
@@ -101,8 +104,7 @@ public class DataBaseUtils {
             }
             table.setName(tableName);
             table.setName2(className);
-            String remarks = "";
-            table.setComment(remarks);
+//            String remarks = "";
             table.setKey(keys.toString());
             list.add(table);
             //处理表中的所有字段
@@ -115,8 +117,9 @@ public class DataBaseUtils {
                 column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
                 String typeName = columns.getString("TYPE_NAME");//数据库类型
                 String tyName = MySql2JdbcTypeUtils.jdbcTypeMap.get(typeName);
-                column.setColumnDbType(tyName==null?typeName:tyName);
+                column.setColumnDbType(tyName == null ? typeName : tyName);
                 column.setColumnType(PropertiesUtils.customMap.get(typeName));
+                column.setColumnSize(columns.getString("COLUMN_SIZE"));//字段长度
                 String columnsRemarks = columns.getString("REMARKS");
                 column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
                 //如果该列是主键
@@ -146,7 +149,7 @@ public class DataBaseUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        DataBase dataBase = new DataBase("MYSQL", "euler_tld", "bf_slideshow");
+        DataBase dataBase = new DataBase("MYSQL", "euler_tld", "bf_userinfo");
         dataBase.setUserName("root");
         dataBase.setPassWord("rootroot");
         List<Table> tbAddress = DataBaseUtils.getDbInfo(dataBase);

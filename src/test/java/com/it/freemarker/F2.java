@@ -17,9 +17,9 @@ public class F2 {
     @Test
     public void test() throws Exception {
         Configuration cfg = new Configuration();
-        String templateString = "我喜欢学习：${name}";
+        String templateString = "我喜欢学习：${name?uncap_first}";
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("name","java");
+        map.put("name","Java");
         /**
          * 自定义模板
          * 1.模板名称

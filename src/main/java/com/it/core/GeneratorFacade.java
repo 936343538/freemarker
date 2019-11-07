@@ -3,6 +3,7 @@ package com.it.core;
 import com.it.utils.DataBaseUtils;
 import com.it.utils.PropertiesUtils;
 import com.it.zhifa.Settings;
+import com.it.zhifa.db.Column;
 import com.it.zhifa.db.DataBase;
 import com.it.zhifa.db.Table;
 
@@ -27,7 +28,7 @@ public class GeneratorFacade {
         this.outPath = outPath;
         this.settings = settings;
         this.db = db;
-        this.generator = new Generator(templatePath,outPath);
+        this.generator = new Generator(templatePath, outPath);
     }
 
     //针对数据库表生成
@@ -39,7 +40,7 @@ public class GeneratorFacade {
 
             Map<String, Object> dataModel = getDataModel(table);
             for (Map.Entry<String, Object> stringObjectEntry : dataModel.entrySet()) {
-                System.out.println(stringObjectEntry.getKey()+"---"+stringObjectEntry.getValue());
+                System.out.println(stringObjectEntry.getKey() + "---" + stringObjectEntry.getValue());
             }
             System.out.println("______________________");
             generator.scanTemplatesAndProcess(dataModel);
@@ -54,6 +55,9 @@ public class GeneratorFacade {
         //Settings
         stringObjectMap.putAll(this.settings.getSettingMap());
         stringObjectMap.put("className", table.getName2());
+        Column column = table.getColumns().get(0);
+        stringObjectMap.put("id", column.getColumnName2());//id 主键表小写 bfUserId
+        stringObjectMap.put("capId",column.getColumnName());//id 主键大写 BF_USER_ID
         return stringObjectMap;
     }
 }
