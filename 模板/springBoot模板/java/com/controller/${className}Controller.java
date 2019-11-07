@@ -9,6 +9,11 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * ${date}
+ * @author ${author}
+ * ${table.comment!}
+ */
 @RestController
 @RequestMapping(value = "/{version}/${className}/")
 public class ${className}Controller extends BaseController<${className}Service, ${className}Entity> {

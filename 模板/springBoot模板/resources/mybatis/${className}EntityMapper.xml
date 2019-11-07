@@ -62,7 +62,7 @@
         </#if>
     </#list>
         </set>
-        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#break></#if></#list>
+        WHERE ${capId} = ${r"#{"}${id}}
     </update>
     <update id="updateByPrimaryKey" parameterType="${package}.entity.${className}Entity">
         update ${table.name}
@@ -73,7 +73,7 @@
         </#if>
     </#list>
         </set>
-        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#break></#if></#list>
+        WHERE ${capId} = ${r"#{"}${id}}
     </update>
 </mapper>
     

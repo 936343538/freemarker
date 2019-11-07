@@ -1,8 +1,9 @@
 package ${package}.entity;
 
 /**
+ * ${date}
  * @author ${author}
- * @date ${date}
+ * ${table.comment!}
  */
 public class ${className}Entity extends BaseEntity {
 
