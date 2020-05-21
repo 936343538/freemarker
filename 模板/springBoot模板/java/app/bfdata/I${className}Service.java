@@ -18,18 +18,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "${r"${bf.gateway.name}"}", configuration = BfGatewayConfig.class)
 public interface I${className}Service {
 
+    /**
+     * 添加
+     *
+     * @param entity 实体类
+     * @return
+     */
     @RequestMapping(value = "/bf/v1.0.0/${className}/add", method = RequestMethod.POST)
     Result<Object> add(@RequestBody ${className}Entity entity);
 
+    /**
+     * 通过主键ID查询
+     *
+     * @param wareId 主键ID
+     * @return
+     */
     @RequestMapping(value = "/bf/v1.0.0/${className}/get", method = RequestMethod.POST)
     Result<Object> get(@RequestParam("entityId") String ${id});
 
+    /**
+     * 修改
+     *
+     * @param entity 实体类
+     * @return
+     */
     @RequestMapping(value = "/bf/v1.0.0/${className}/update", method = RequestMethod.POST)
     Result<Object> update(@RequestBody ${className}Entity entity);
 
+    /**
+     * 通过主键ID删除
+     *
+     * @param wareId 主键ID
+     * @return
+     */
     @RequestMapping(value = "/bf/v1.0.0/${className}/delete", method = RequestMethod.POST)
     Result<Object> delete(@RequestParam("${id}") String ${id});
 
+    /**
+     * 列表查询
+     *
+     * @param entity   实体类
+     * @param pageNum  当前页
+     * @param pageSize 每页查询页数
+     * @return
+     */
     @RequestMapping(value = "/bf/v1.0.0/${className}/list", method = RequestMethod.GET)
     Result<Object> list(
         @RequestBody ${className}Entity entity,
