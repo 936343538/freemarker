@@ -530,12 +530,12 @@ public class CodeUtil extends JFrame {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
         //数据库类型，数据库名称，表名
         DataBase db = new DataBase("mysql", "10.188.182.138", "3306",
-                "euler_tld", "bf_school_love");
+                "euler_tld", "bf_coop_service_ware");
         db.setUserName("root");
         db.setPassWord("root");
         new CodeUtil(db, null).setVisible(true);

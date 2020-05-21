@@ -9,11 +9,26 @@ import java.util.List;
  */
 public class Table {
 
-    private String name;//表名称
-    private String name2;//处理后的表名称
-    private String comment;//介绍
-    private String key;// 主键列
-    private List<Column> columns;//列集合
+    /**
+     * 表名称
+     */
+    private String name;
+    /**
+     * 处理后的表名称
+     */
+    private String name2;
+    /**
+     * 介绍
+     */
+    private String comment;
+    /**
+     * 主键列
+     */
+    private String key;
+    /**
+     * 列集合
+     */
+    private List<Column> columns;
 
     public String getName() {
         return name;
@@ -31,9 +46,9 @@ public class Table {
         this.name2 = name2;
     }
 
-	public String getComment() {
-		return comment;
-	}
+    public String getComment() {
+        return comment;
+    }
 
     public void setComment(String comment) {
         this.comment = comment;

@@ -20,9 +20,13 @@ import java.util.Map;
  * @date 2019-09-29
  */
 public class Generator {
-    //模板所在路径
+    /**
+     * 模板所在路径
+     */
     private String templatePath;
-    //代码生成路径
+    /**
+     * 代码生成路径
+     */
     private String outPath;
 
     private Configuration configuration;
@@ -30,14 +34,18 @@ public class Generator {
     public Generator(String templatePath, String outPath) throws Exception {
         this.templatePath = templatePath;
         this.outPath = PropertiesUtils.customMap.get("outPath");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         PropertiesUtils.customMap.put("date",simpleDateFormat.format(new Date()));
         configuration = new Configuration();
         //指定模板加载器
         configuration.setTemplateLoader(new FileTemplateLoader(new File(templatePath)));
     }
 
-    //扫描所有模板并进行代码生成
+    /**
+     * 扫描所有模板并进行代码生成
+     * @param dataMap
+     * @throws Exception
+     */
     public void scanTemplatesAndProcess(Map dataMap) throws Exception {
         //加载文件夹下的所有模板文件
         List<File> srcFiles = FileUtils.searchAllFile(new File(templatePath));
@@ -57,7 +65,8 @@ public class Generator {
         String outFileName = processTemplateString(templateFileName, dataMap);
         //读取模板
         Template template = configuration.getTemplate(templateFileName);
-        template.setOutputEncoding("utf-8");//指定生成字节码的编码文件
+        //指定生成字节码的编码文件
+        template.setOutputEncoding("utf-8");
         //创建文件
         File mkdir = FileUtils.mkdir(outPath, outFileName);
         //模板处理

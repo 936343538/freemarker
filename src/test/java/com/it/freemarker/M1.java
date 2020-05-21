@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
 /**

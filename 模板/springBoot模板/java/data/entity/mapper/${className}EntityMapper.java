@@ -4,9 +4,10 @@ import ${package}.entity.${className}Entity;
 import org.springframework.stereotype.Repository;
 
 /**
- * ${date}
- * @author ${author}
  * ${table.comment!}
+ *
+ * @author ${author}
+ * @date ${date}
  */
 @Repository
 public interface ${className}EntityMapper extends BaseEntityMapper<${className}Entity>{

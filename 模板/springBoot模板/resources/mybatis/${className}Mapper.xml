@@ -13,7 +13,12 @@
     </resultMap>
     <sql id="Base_Column_List">
     <#list table.columns as column>
-    ${column.columnName}<#if column_has_next>,</#if>
+        ${column.columnName}<#if column_has_next>,</#if>
     </#list>
     </sql>
+    <select id="list" resultType="${package}.entity.${className}Entity">
+        select
+        <include refid="Base_Column_List"/>
+        from ${table.name}
+    </select>
 </mapper>

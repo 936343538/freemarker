@@ -1,18 +1,36 @@
 package com.it.zhifa.db;
 
-//数据库实体类
+/**
+ * 数据库实体类
+ *
+ * @author hongzf
+ * @date 2020/5/20 15:49
+ */
 public class DataBase {
 
     private static String mysqlUrl = "jdbc:mysql://[ip]:[port]/[db]?useUnicode=true&amp&characterEncoding=UTF8&serverTimezone=UTC";
     private static String oracleUrl = "jdbc:oracle:thin:@[ip]:[port]:[db]";
+    /**
+     * 数据库类型
+     */
+    private static String MYSQL = "MYSQL";
 
-    private String dbType;//数据库类型
+    /**
+     * 数据库类型
+     */
+    private String dbType;
     private String driver;
     private String userName;
     private String passWord;
     private String url;
-    private String dbName;//数据库名称
-    private String tableName;//表名
+    /**
+     * 数据库名称
+     */
+    private String dbName;
+    /**
+     * 表名
+     */
+    private String tableName;
 
     public DataBase() {
     }
@@ -33,7 +51,7 @@ public class DataBase {
 
     public DataBase(String dbType, String ip, String port, String dbName) {
         this.dbType = dbType;
-        if ("MYSQL".endsWith(dbType.toUpperCase())) {
+        if (MYSQL.endsWith(dbType.toUpperCase())) {
             this.driver = "com.mysql.jdbc.Driver";
             this.url = mysqlUrl.replace("[ip]", ip).replace("[port]", port).replace("[db]", dbName);
         } else {
@@ -46,7 +64,7 @@ public class DataBase {
         this.dbType = dbType;
         this.dbName = dbName;
         this.tableName = tableName;
-        if ("MYSQL".endsWith(dbType.toUpperCase())) {
+        if (MYSQL.endsWith(dbType.toUpperCase())) {
             this.driver = "com.mysql.jdbc.Driver";
             this.url = mysqlUrl.replace("[ip]", ip).replace("[port]", port).replace("[db]", dbName);
         } else {

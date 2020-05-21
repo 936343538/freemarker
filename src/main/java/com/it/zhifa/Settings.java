@@ -8,6 +8,9 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zhifa
+ */
 public class Settings {
 
     private String project = "example";

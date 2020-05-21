@@ -31,7 +31,11 @@ public class GeneratorFacade {
         this.generator = new Generator(templatePath, outPath);
     }
 
-    //针对数据库表生成
+    /**
+     * 针对数据库表生成
+     * @param db
+     * @throws Exception
+     */
     public void generatorByTable(DataBase db) throws Exception {
         //查询数据库获取所有表信息
         List<Table> tableList = DataBaseUtils.getDbInfo(db);
@@ -56,8 +60,10 @@ public class GeneratorFacade {
         stringObjectMap.putAll(this.settings.getSettingMap());
         stringObjectMap.put("className", table.getName2());
         Column column = table.getColumns().get(0);
-        stringObjectMap.put("id", column.getColumnName2());//id 主键表小写 bfUserId
-        stringObjectMap.put("capId",column.getColumnName());//id 主键大写 BF_USER_ID
+        //id 主键表小写 bfUserId
+        stringObjectMap.put("id", column.getColumnName2());
+        //id 主键大写 BF_USER_ID
+        stringObjectMap.put("capId",column.getColumnName());
         return stringObjectMap;
     }
 }

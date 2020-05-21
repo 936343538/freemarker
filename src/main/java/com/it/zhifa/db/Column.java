@@ -3,14 +3,35 @@ package com.it.zhifa.db;
  * 列对象
  */
 public class Column {
-	
-	private String columnName;//列名称
-	private String columnName2;//列名称(处理后的列名称)
-	private String columnType;//列类型
-	private String columnDbType;//列数据库类型
-	private String columnComment;//列备注D
-	private String columnKey;//是否是主键
-	private String columnSize;//是否是主键
+
+	/**
+	 * 列名称
+	 */
+	private String columnName;
+	/**
+	 * 列名称(处理后的列名称)
+	 */
+	private String columnName2;
+	/**
+	 * 列类型
+	 */
+	private String columnType;
+	/**
+	 * 列数据库类型
+	 */
+	private String columnDbType;
+	/**
+	 * 列备注D
+	 */
+	private String columnComment;
+	/**
+	 * 是否是主键
+	 */
+	private String columnKey;
+	/**
+	 * 是否是主键
+	 */
+	private String columnSize;
 
 	public String getColumnName() {
 		return columnName;
