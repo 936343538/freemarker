@@ -75,5 +75,20 @@
         </set>
         WHERE ${capId} = ${r"#{"}${id}}
     </update>
+    <update id="batchUpdateByListSelect">
+        <foreach collection="list" item="item" separator=";">
+            update ${table.name}
+            <set>
+                <#list table.columns as column>
+                <#if column.columnKey="0">
+                <if test="item.${column.columnName2} != null">
+                    ${column.columnName} = ${r"#{item."}${column.columnName2},jdbcType=${column.columnDbType}}<#if column_has_next>,</#if>
+                </if>
+                </#if>
+                </#list>
+            </set>
+                WHERE ${capId} = ${r"#{item."}${id}}
+        </foreach>
+    </update>
 </mapper>
     
