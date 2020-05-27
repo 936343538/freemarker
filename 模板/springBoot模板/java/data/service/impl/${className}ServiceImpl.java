@@ -22,8 +22,8 @@ public class ${className}ServiceImpl
 
     @Override
     public PageInfo<${className}Entity> list(${className}Entity entity, int pageNum, int pageSize) {
-            PageHelper.startPage(pageNum, pageSize);
-            Page<${className}Entity> page = baseMapper.list(entity);
-            return page.toPageInfo();
+        PageHelper.startPage(pageNum, pageSize);
+        Page<${className}Entity> page = baseMapper.list(entity);
+        return page.toPageInfo();
     }
 }

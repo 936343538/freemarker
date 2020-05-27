@@ -45,7 +45,7 @@ public class ${className}Controller extends BaseController {
             Result<Object> resultBf = ${className?uncap_first}Service.get(${id});
             if (resultBf.isSuccess()) {
                 result.setInfo(resultBf.getInfo());
-            }else {
+            } else {
                 result.setCode(resultBf.getCode());
             }
         } catch (Exception e) {

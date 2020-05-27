@@ -30,7 +30,7 @@ public interface I${className}Service {
     /**
      * 通过主键ID查询
      *
-     * @param wareId 主键ID
+     * @param ${id} 主键ID
      * @return
      */
     @RequestMapping(value = "/bf/v1.0.0/${className}/get", method = RequestMethod.POST)
@@ -48,7 +48,7 @@ public interface I${className}Service {
     /**
      * 通过主键ID删除
      *
-     * @param wareId 主键ID
+     * @param ${id} 主键ID
      * @return
      */
     @RequestMapping(value = "/bf/v1.0.0/${className}/delete", method = RequestMethod.POST)
