@@ -20,10 +20,4 @@ public class ${className}ServiceImpl
         extends BaseServiceImpl<${className}EntityMapper, ${className}Mapper, ${className}Entity>
         implements ${className}Service {
 
-    @Override
-    public PageInfo<${className}Entity> list(${className}Entity entity, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        Page<${className}Entity> page = baseMapper.list(entity);
-        return page.toPageInfo();
-    }
 }

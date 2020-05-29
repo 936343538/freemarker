@@ -76,7 +76,7 @@
         WHERE ${capId} = ${r"#{"}${id}}
     </update>
     <update id="batchUpdateByListSelect">
-        <foreach collection="list" item="item" separator=";">
+        <foreach collection="entityList" item="item" separator=";">
             update ${table.name}
             <set>
                 <#list table.columns as column>

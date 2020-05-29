@@ -24,8 +24,8 @@ public interface I${className}Service {
      * @param entity 实体类
      * @return
      */
-    @RequestMapping(value = "/bf/v1.0.0/${className}/add", method = RequestMethod.POST)
-    Result<Object> add(@RequestBody ${className}Entity entity);
+    @RequestMapping(value = "/bf/v1.0.0/${className}/insert", method = RequestMethod.POST)
+    Result<Object> insert(@RequestBody ${className}Entity entity);
 
     /**
      * 通过主键ID查询
@@ -33,7 +33,7 @@ public interface I${className}Service {
      * @param ${id} 主键ID
      * @return
      */
-    @RequestMapping(value = "/bf/v1.0.0/${className}/get", method = RequestMethod.POST)
+    @RequestMapping(value = "/bf/v1.0.0/${className}/get", method = RequestMethod.GET)
     Result<Object> get(@RequestParam("entityId") String ${id});
 
     /**
@@ -48,11 +48,11 @@ public interface I${className}Service {
     /**
      * 通过主键ID删除
      *
-     * @param ${id} 主键ID
+     * @param entityId 主键ID
      * @return
      */
-    @RequestMapping(value = "/bf/v1.0.0/${className}/delete", method = RequestMethod.POST)
-    Result<Object> delete(@RequestParam("${id}") String ${id});
+    @RequestMapping(value = "/bf/v1.0.0/${className}/remove", method = RequestMethod.POST)
+    Result<Object> remove(@RequestParam("entityId") String entityId);
 
     /**
      * 列表查询
@@ -62,8 +62,8 @@ public interface I${className}Service {
      * @param pageSize 每页查询页数
      * @return
      */
-    @RequestMapping(value = "/bf/v1.0.0/${className}/list", method = RequestMethod.GET)
-    Result<Object> list(
+    @RequestMapping(value = "/bf/v1.0.0/${className}/selectPageWithParam", method = RequestMethod.GET)
+    Result<Object> selectPageWithParam(
         @RequestBody ${className}Entity entity,
         @RequestParam("pageNum") int pageNum,
         @RequestParam("pageSize") int pageSize

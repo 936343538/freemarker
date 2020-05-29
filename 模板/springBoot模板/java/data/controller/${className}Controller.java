@@ -24,42 +24,14 @@ public class ${className}Controller extends BaseController<${className}Service, 
 
     @ApiVersion("1.0.0")
     @HystrixCommand(defaultFallback = "objectFallBack")
-    @RequestMapping(value = "add")
-    public Result<Object> add(@RequestBody ${className}Entity entity) {
+    @RequestMapping(value = "insert")
+    public Result<Object> insert(@RequestBody ${className}Entity entity) {
         Result<Object> result = new Result<>();
         try {
             entity.set${id?cap_first}(CodeUtils.uuid32());
             result.setInfo(dService.insert(entity));
         } catch (Exception e) {
             logger.error("${className}Controller add error ", e);
-            result.setCode(BaseRetCode.ERROR);
-        }
-        return result;
-    }
-
-    @ApiVersion("1.0.0")
-    @HystrixCommand(defaultFallback = "objectFallBack")
-    @RequestMapping(value = "delete")
-    public Result<Object> delete(String ${id}) {
-        Result<Object> result = new Result<>();
-        try {
-            result.setInfo(dService.delete(${id}));
-        } catch (Exception e) {
-            logger.error("${className}Controller add error ", e);
-            result.setCode(BaseRetCode.ERROR);
-        }
-        return result;
-    }
-
-    @ApiVersion("1.0.0")
-    @HystrixCommand(defaultFallback = "objectFallBack")
-    @RequestMapping(value = "list")
-    public Result<Object> list(@RequestBody ${className}Entity entity, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-        Result<Object> result = new Result<>();
-        try {
-            result.setInfo(dService.list(entity, pageNum, pageSize));
-        } catch (Exception e) {
-            logger.error("${className}Controller list error ", e);
             result.setCode(BaseRetCode.ERROR);
         }
         return result;

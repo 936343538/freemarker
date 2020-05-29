@@ -25,15 +25,15 @@ public class ${className}Controller extends BaseController {
     @Autowired
     I${className}Service ${className?uncap_first}Service;
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public Result<Object> add(${className}Entity entity) {
+    @RequestMapping(value = "insert", method = RequestMethod.POST)
+    public Result<Object> insert(${className}Entity entity) {
         try {
-            Result<Object> resultBf = ${className?uncap_first}Service.add(entity);
+            Result<Object> resultBf = ${className?uncap_first}Service.insert(entity);
             if (!resultBf.isSuccess()) {
                 result.setCode(resultBf.getCode());
             }
         } catch (Exception e) {
-            logger.error("${className}Controller add error ", e);
+            logger.error("${className}Controller insert error ", e);
             result.setCode(BaseRetCode.ERROR);
         }
         return result;
@@ -69,31 +69,31 @@ public class ${className}Controller extends BaseController {
         return result;
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public Result<Object> delete(String ${id}) {
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public Result<Object> remove(String ${id}) {
         try {
-            Result<Object> resultBf = ${className?uncap_first}Service.delete(${id});
+            Result<Object> resultBf = ${className?uncap_first}Service.remove(${id});
             if (!resultBf.isSuccess()) {
                 result.setCode(resultBf.getCode());
             }
         } catch (Exception e) {
-            logger.error("${className}Controller delete error ", e);
+            logger.error("${className}Controller remove error ", e);
             result.setCode(BaseRetCode.ERROR);
         }
         return result;
     }
 
-    @RequestMapping(value = "list")
-    public Result<Object> list(${className}Entity entity) {
+    @RequestMapping(value = "selectPageWithParam")
+    public Result<Object> selectPageWithParam(${className}Entity entity) {
         try {
-            Result<Object> resultBf = ${className?uncap_first}Service.list(entity, pageNum, pageSize);
+            Result<Object> resultBf = ${className?uncap_first}Service.selectPageWithParam(entity, pageNum, pageSize);
             if (resultBf.isSuccess()) {
                 result.setInfo(resultBf.getInfo());
             } else {
                 result.setCode(resultBf.getCode());
             }
         } catch (Exception e) {
-            logger.error("SchoolVideoController watchVideo error ", e);
+            logger.error("${className}Controller selectPageWithParam error ", e);
             result.setCode(BaseRetCode.TIME_OUT);
         }
         return result;

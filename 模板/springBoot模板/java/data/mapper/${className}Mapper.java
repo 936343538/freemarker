@@ -14,11 +14,4 @@ import com.github.pagehelper.Page;
 @Repository
 public interface ${className}Mapper extends BaseMapper<${className}Entity> {
 
-    /**
-     * 列表查询
-     *
-     * @param entity 实体类
-     * @return
-     */
-    Page<${className}Entity> list(@Param("entity") ${className}Entity entity);
 }

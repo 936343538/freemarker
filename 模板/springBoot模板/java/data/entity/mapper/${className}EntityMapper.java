@@ -15,11 +15,4 @@ import java.util.List;
 @Repository
 public interface ${className}EntityMapper extends BaseEntityMapper<${className}Entity>{
 
-    /**
-     * 批量更新
-     *
-     * @param list
-     */
-    void batchUpdateByListSelect(@Param("list") List<${className}Entity> list);
-
 }

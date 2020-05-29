@@ -16,7 +16,7 @@
         ${column.columnName}<#if column_has_next>,</#if>
     </#list>
     </sql>
-    <select id="list" resultType="${package}.entity.${className}Entity">
+    <select id="selectPageWithParam" resultType="${package}.entity.${className}Entity">
         select
         <include refid="Base_Column_List"/>
         from ${table.name}
