@@ -84,9 +84,7 @@ public class DataBaseUtils {
         DatabaseMetaData metaData = connection.getMetaData();
         //3.获取所有的数据库表信息  dbName：指定数据库
         String dbName = db.getDbName();
-        ResultSet tables = metaData.getTables(dbName, null, db.getTableName(), new String[]{"TABLE"});
         List<Table> list = new ArrayList<>();
-
         try {
 //            while (tables.next()) {
 //                String tableName = tables.getString("TABLE_NAME");//表名称
@@ -95,6 +93,7 @@ public class DataBaseUtils {
             for (String tableName : tableNameArr) {
                 Table table = new Table();
                 String className = removePrefix(tableName);//类名
+                ResultSet tables = metaData.getTables(dbName, null, tableName, new String[]{"TABLE"});
                 while (tables.next()) {
                     table.setComment(tables.getString("REMARKS"));
                 }
@@ -133,7 +132,7 @@ public class DataBaseUtils {
                     columnsList.add(column);
                 }
                 table.setColumns(columnsList);
-                System.out.println(tableName+"  表处理成功!");
+                System.out.println(tableName + "  表处理成功!");
             }
 //            }
         } finally {
