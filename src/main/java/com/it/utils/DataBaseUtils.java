@@ -89,48 +89,52 @@ public class DataBaseUtils {
 
         try {
 //            while (tables.next()) {
-            Table table = new Table();
 //                String tableName = tables.getString("TABLE_NAME");//表名称
-            String tableName = db.getTableName();//表名称
-            String className = removePrefix(tableName);//类名
-            while (tables.next()) {
-                table.setComment(tables.getString("REMARKS"));
-            }
-            ResultSet primaryKeys = metaData.getPrimaryKeys(dbName, null, tableName);//主键
-            StringBuilder keys = new StringBuilder();
-            while (primaryKeys.next()) {
-                String keyName = primaryKeys.getString("COLUMN_NAME");
-                keys.append(keyName).append(",");
-            }
-            table.setName(tableName);
-            table.setName2(className);
-//            String remarks = "";
-            table.setKey(keys.toString());
-            list.add(table);
-            //处理表中的所有字段
-            ResultSet columns = metaData.getColumns(dbName, null, tableName, null);
-            ArrayList<Column> columnsList = new ArrayList<>();
-            while (columns.next()) {
-                Column column = new Column();
-                String columnName = columns.getString("COLUMN_NAME");//列名
-                column.setColumnName(columnName);
-                column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
-                String typeName = columns.getString("TYPE_NAME");//数据库类型
-                String tyName = MySql2JdbcTypeUtils.jdbcTypeMap.get(typeName);
-                column.setColumnDbType(tyName == null ? typeName : tyName);
-                column.setColumnType(PropertiesUtils.customMap.get(typeName));
-                column.setColumnSize(columns.getString("COLUMN_SIZE"));//字段长度
-                String columnsRemarks = columns.getString("REMARKS");
-                column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
-                //如果该列是主键
-                String pri = "0";
-                if (StringUtils.contains(columnName, table.getKey().split(","))) {
-                    pri = "1";
+            String tableNames = db.getTableName();//表名称
+            String[] tableNameArr = tableNames.split(",");
+            for (String tableName : tableNameArr) {
+                Table table = new Table();
+                String className = removePrefix(tableName);//类名
+                while (tables.next()) {
+                    table.setComment(tables.getString("REMARKS"));
                 }
-                column.setColumnKey(pri);
-                columnsList.add(column);
+                ResultSet primaryKeys = metaData.getPrimaryKeys(dbName, null, tableName);//主键
+                StringBuilder keys = new StringBuilder();
+                while (primaryKeys.next()) {
+                    String keyName = primaryKeys.getString("COLUMN_NAME");
+                    keys.append(keyName).append(",");
+                }
+                table.setName(tableName);
+                table.setName2(className);
+//            String remarks = "";
+                table.setKey(keys.toString());
+                list.add(table);
+                //处理表中的所有字段
+                ResultSet columns = metaData.getColumns(dbName, null, tableName, null);
+                ArrayList<Column> columnsList = new ArrayList<>();
+                while (columns.next()) {
+                    Column column = new Column();
+                    String columnName = columns.getString("COLUMN_NAME");//列名
+                    column.setColumnName(columnName);
+                    column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
+                    String typeName = columns.getString("TYPE_NAME");//数据库类型
+                    String tyName = MySql2JdbcTypeUtils.jdbcTypeMap.get(typeName);
+                    column.setColumnDbType(tyName == null ? typeName : tyName);
+                    column.setColumnType(PropertiesUtils.customMap.get(typeName));
+                    column.setColumnSize(columns.getString("COLUMN_SIZE"));//字段长度
+                    String columnsRemarks = columns.getString("REMARKS");
+                    column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
+                    //如果该列是主键
+                    String pri = "0";
+                    if (StringUtils.contains(columnName, table.getKey().split(","))) {
+                        pri = "1";
+                    }
+                    column.setColumnKey(pri);
+                    columnsList.add(column);
+                }
+                table.setColumns(columnsList);
+                System.out.println(tableName+"  表处理成功!");
             }
-            table.setColumns(columnsList);
 //            }
         } finally {
 //            tables.close();

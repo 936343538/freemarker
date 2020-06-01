@@ -43,10 +43,10 @@ public class GeneratorFacade {
             //根据数据库表信息，构造数据模型并生成代码
 
             Map<String, Object> dataModel = getDataModel(table);
-            for (Map.Entry<String, Object> stringObjectEntry : dataModel.entrySet()) {
-                System.out.println(stringObjectEntry.getKey() + "---" + stringObjectEntry.getValue());
-            }
-            System.out.println("______________________");
+//            for (Map.Entry<String, Object> stringObjectEntry : dataModel.entrySet()) {
+//                System.out.println(stringObjectEntry.getKey() + "---" + stringObjectEntry.getValue());
+//            }
+//            System.out.println("______________________");
             generator.scanTemplatesAndProcess(dataModel);
         }
     }
