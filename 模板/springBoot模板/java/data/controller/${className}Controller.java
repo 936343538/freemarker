@@ -30,7 +30,7 @@ public class ${className}Controller extends BaseController<${className}Service, 
             entity.set${id?cap_first}(CodeUtils.uuid32());
             result.setInfo(dService.insert(entity));
         } catch (Exception e) {
-            logger.error("${className}Controller add error ", e);
+            logger.error("${className}Controller insert error ", e);
             result.setCode(BaseRetCode.ERROR);
         }
         return result;

@@ -1,7 +1,6 @@
 package ${package}.service;
 
 import ${package}.entity.${className}Entity;
-import com.github.pagehelper.PageInfo;
 
 /**
  * ${table.comment!}
