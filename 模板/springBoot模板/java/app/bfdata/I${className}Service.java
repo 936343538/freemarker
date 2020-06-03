@@ -59,7 +59,7 @@ public interface I${className}Service {
      *
      * @param entity   实体类
      * @param pageNum  当前页
-     * @param pageSize 每页查询页数
+     * @param pageSize 每页查询条数
      * @return
      */
     @RequestMapping(value = "/bf/v1.0.0/${className}/selectPageWithParam", method = RequestMethod.GET)
