@@ -24,7 +24,7 @@ public class ${className}Entity extends BaseEntity {
     }
 
     public void set${column.columnName2?cap_first}(${column.columnType} ${column.columnName2}) {
-        this.${column.columnName2} = ${column.columnName2}<#if column.columnType="String">== null ? null : ${column.columnName2}.trim()</#if>;
+        this.${column.columnName2} = ${column.columnName2}<#if column.columnType="String"> == null ? null : ${column.columnName2}.trim()</#if>;
     }
     </#list>
 
