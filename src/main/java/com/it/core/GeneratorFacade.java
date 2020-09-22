@@ -33,6 +33,7 @@ public class GeneratorFacade {
 
     /**
      * 针对数据库表生成
+     *
      * @param db
      * @throws Exception
      */
@@ -41,7 +42,6 @@ public class GeneratorFacade {
         List<Table> tableList = DataBaseUtils.getDbInfo(db);
         for (Table table : tableList) {
             //根据数据库表信息，构造数据模型并生成代码
-
             Map<String, Object> dataModel = getDataModel(table);
 //            for (Map.Entry<String, Object> stringObjectEntry : dataModel.entrySet()) {
 //                System.out.println(stringObjectEntry.getKey() + "---" + stringObjectEntry.getValue());
@@ -63,7 +63,19 @@ public class GeneratorFacade {
         //id 主键表小写 bfUserId
         stringObjectMap.put("id", column.getColumnName2());
         //id 主键大写 BF_USER_ID
-        stringObjectMap.put("capId",column.getColumnName());
+        stringObjectMap.put("capId", column.getColumnName());
         return stringObjectMap;
+    }
+
+    public static void main(String[] args) {
+        DataBase db = new DataBase(
+                "mysql",
+                "localhost",
+                "3306",
+                "euler_tld",
+                //多张表之间用','分隔
+                "bf_coop_employee");
+        db.setUserName("root");
+        db.setPassWord("rootroot");
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${package}.entity.mapper.${className}EntityMapper">
-    <resultMap id="BaseResultMap" type="${package}.entity.${className}Entity">
+    <resultMap id="BaseResultMap" type="bf.data.entity.entity.coop.${className}Entity">
     <#list table.columns as column>
         <!--${column.columnComment}-->
         <#if column.columnKey="1">
@@ -17,25 +17,25 @@
         </#list>
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from ${table.name}
-        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2}}<#break></#if></#list>
+        FROM ${table.name?upper_case}
+        WHERE <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2}}<#break></#if></#list>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from ${table.name}
-        where <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2}}<#break></#if></#list>
+        DELETE FROM ${table.name?upper_case}
+        WHERE <#list table.columns as column><#if column.columnKey="1">${column.columnName} = ${r"#{"}${column.columnName2}}<#break></#if></#list>
     </delete>
-    <insert id="insert" parameterType="${package}.entity.${className}Entity">
-        insert into ${table.name} (<include refid="Base_Column_List"/>)
-        values (
+    <insert id="insert" parameterType="bf.data.entity.entity.coop.${className}Entity">
+        INSERT INTO ${table.name?upper_case} (<include refid="Base_Column_List"/>)
+        VALUES (
         <#list table.columns as column>
             ${r"#{"}${column.columnName2},jdbcType=${column.columnDbType}}<#if column_has_next>,</#if>
         </#list>
         )
     </insert>
-    <insert id="insertSelective" parameterType="${package}.entity.${className}Entity">
-        insert into ${table.name}
+    <insert id="insertSelective" parameterType="bf.data.entity.entity.coop.${className}Entity">
+        INSERT INTO ${table.name?upper_case}
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <#list table.columns as column>
         <if test="${column.columnName2} != null">
@@ -61,9 +61,9 @@
             </#list>
             )
         </foreach>
-        </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="${package}.entity.${className}Entity">
-        update ${table.name}
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="bf.data.entity.entity.coop.${className}Entity">
+        UPDATE ${table.name?upper_case}
         <set>
     <#list table.columns as column>
         <#if column.columnKey="0">
@@ -75,8 +75,8 @@
         </set>
         WHERE ${capId} = ${r"#{"}${id}}
     </update>
-    <update id="updateByPrimaryKey" parameterType="${package}.entity.${className}Entity">
-        update ${table.name}
+    <update id="updateByPrimaryKey" parameterType="bf.data.entity.entity.coop.${className}Entity">
+        UPDATE ${table.name?upper_case}
         <set>
     <#list table.columns as column>
         <#if column.columnKey="0">
@@ -88,7 +88,7 @@
     </update>
     <update id="batchUpdateByListSelect">
         <foreach collection="entityList" item="item" separator=";">
-            update ${table.name}
+            UPDATE ${table.name?upper_case}
             <set>
                 <#list table.columns as column>
                 <#if column.columnKey="0">

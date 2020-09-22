@@ -6,16 +6,15 @@ import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * 模板+数据=文件
+ *
  * @author hongzf
  * @date 2019-09-29
  */
@@ -35,7 +34,7 @@ public class Generator {
         this.templatePath = templatePath;
         this.outPath = PropertiesUtils.customMap.get("outPath");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        PropertiesUtils.customMap.put("date",simpleDateFormat.format(new Date()));
+        PropertiesUtils.customMap.put("date", simpleDateFormat.format(new Date()));
         configuration = new Configuration();
         //指定模板加载器
         configuration.setTemplateLoader(new FileTemplateLoader(new File(templatePath)));
@@ -43,6 +42,7 @@ public class Generator {
 
     /**
      * 扫描所有模板并进行代码生成
+     *
      * @param dataMap
      * @throws Exception
      */
@@ -56,6 +56,8 @@ public class Generator {
     }
 
     /**
+     * 通过模板文件进行代码生成
+     *
      * @param dataMap 数据模型
      * @param srcFile 模板文件
      */
@@ -71,10 +73,18 @@ public class Generator {
         File mkdir = FileUtils.mkdir(outPath, outFileName);
         //模板处理
         FileWriter fileWriter = new FileWriter(mkdir);
-        template.process(dataMap,fileWriter);
+        template.process(dataMap, fileWriter);
         fileWriter.close();
     }
 
+    /**
+     * 通过模板名获取文件名
+     *
+     * @param templateString
+     * @param dataModel
+     * @return
+     * @throws Exception
+     */
     private String processTemplateString(String templateString, Map dataModel) throws Exception {
         StringWriter out = new StringWriter();
         Template template = new Template("ts", new StringReader(templateString), configuration);

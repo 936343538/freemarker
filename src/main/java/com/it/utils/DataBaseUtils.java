@@ -31,10 +31,11 @@ public class DataBaseUtils {
         props.put("remarksReporting", "true");
         props.put("user", db.getUserName());
         props.put("password", db.getPassWord());
-        props.put("remarks", "true"); //设置可以获取remarks信息
-        props.put("useInformationSchema", "true");//设置可以获取tables remarks信息
+        //设置可以获取remarks信息
+        props.put("remarks", "true");
+        //设置可以获取tables remarks信息
+        props.put("useInformationSchema", "true");
 //        Class.forName(db.getDriver());//注册驱动
-        //jdbc:mysql://127.0.0.1:3306/?useUnicode=true&amp;characterEncoding=UTF8
         return DriverManager.getConnection(db.getUrl(), props);
     }
 
@@ -152,7 +153,7 @@ public class DataBaseUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        DataBase dataBase = new DataBase("MYSQL", "euler_tld", "bf_userinfo");
+        DataBase dataBase = new DataBase("MYSQL", "euler_tld", "bf_coop_employee");
         dataBase.setUserName("root");
         dataBase.setPassWord("rootroot");
         List<Table> tbAddress = DataBaseUtils.getDbInfo(dataBase);
