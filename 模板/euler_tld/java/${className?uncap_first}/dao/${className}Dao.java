@@ -23,4 +23,10 @@ public interface ${className}Dao extends GenericMapper<${className}, String>{
     int insertSelective(${className} ${className?uncap_first});
 
     void deleteBatch(@Param("idList") List<String> idList);
+
+    /**
+     * 逻辑删除,用来替换 deleteBatch
+     * @param idList
+     */
+    void updateBatch(@Param("idList") List<String> idList);
 }

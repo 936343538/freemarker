@@ -105,39 +105,40 @@ public class M1 {
          *      tableNamePattern {null:所有表, "":目标表}
          *      types {TABLE:表,VIEW:视图}
          */
-        ResultSet tablers = metaData.getTables("euler_tld", null, "bf_task", new String[]{"TABLE"});
+//        ResultSet tablers = metaData.getTables("euler_tld", null, null, new String[]{"TABLE"});
         //拼装table
-        while (tablers.next()) {
-//            //所属数据库
+//        while (tablers.next()) {
+////            //所属数据库
 //            System.out.println(tablers.getString(1));
-//            //所属schema
+////            //所属schema
 //            System.out.println(tablers.getString(2));
-//            //表名
+////            //表名
 //            System.out.println(tablers.getString(3));
-//            //数据库表类型
+////            //数据库表类型
 //            System.out.println(tablers.getString(4));
-//            //数据库表备注
-            System.out.println(tablers.getString("REMARKS"));
-        }
-//        ResultSet primaryKeys = metaData.getPrimaryKeys("auler_tld", null, "tb_address");//主键
-//        StringBuilder keys = new StringBuilder();
-//        while (primaryKeys.next()) {
-//            String keyName = primaryKeys.getString("COLUMN_NAME");
-//            keys.append(keyName).append(",");
+////            //数据库表备注
+//            System.out.println(tablers.getString("REMARKS"));
 //        }
-//        System.out.println(keys);
+        ResultSet primaryKeys = metaData.getPrimaryKeys("euler_tld", null, "bf_coop_employee");//主键
+        StringBuilder keys = new StringBuilder();
+        while (primaryKeys.next()) {
+            String keyName = primaryKeys.getString("COLUMN_NAME");
+            keys.append(keyName).append(",");
+        }
+        System.out.println(keys);
         /**
          * catalog: 如果 null ,数据库字段查出来会重复,所以这个需要指定数据库 猜想:未指定,扫描所有数据库,发现相同的表重复生成
          */
-        ResultSet columns = metaData.getColumns("euler_tld", null, "bf_task", null);
+        ResultSet columns = metaData.getColumns("euler_tld", null, "bf_coop_employee", null);
 //        ArrayList<Column> columnsList = new ArrayList<>();
         while (columns.next()) {
             Column column = new Column();
             String columnName = columns.getString("COLUMN_NAME");//列名
             column.setColumnName(columnName);
             String column_size = columns.getString("COLUMN_SIZE");//字段长度
-//            System.out.println(column_size);
-//            System.out.println("========");
+            System.out.println(columnName);
+            System.out.println(column_size);
+            System.out.println("========");
             column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
             String typeName = columns.getString("TYPE_NAME");//数据库类型
             column.setColumnDbType(typeName);
@@ -145,16 +146,16 @@ public class M1 {
             String columnsRemarks = columns.getString("REMARKS");
             column.setColumnComment(StringUtils.isBlank(columnsRemarks) ? columnName : columnsRemarks);
 //            //如果该列是主键
-//            String pri = null;
-//            if (StringUtils.contains("BF_USERINFO_ID", keys.toString().split(","))) {
-//                pri = "PRI";
-//            }
+            String pri = null;
+            if (StringUtils.contains("BF_USERINFO_ID", keys.toString().split(","))) {
+                pri = "PRI";
+            }
 //            System.out.println(pri);
-//            column.setColumnKey(pri);
+            column.setColumnKey(pri);
 //            columnsList.add(column);
         }
         columns.close();
-//        primaryKeys.close();
+        primaryKeys.close();
 //        tablers.close();
         conn.close();
     }

@@ -121,4 +121,14 @@
         )
     </delete>
 
+    <update id="updateBatch">
+        UPDATE ${table.name}
+        SET DATA_STATE = '0'
+        WHERE ${capId} IN(
+        <foreach collection="idList" item="item" index="index" separator=",">
+            ${r"#{item,jdbcType=VARCHAR}"}
+        </foreach>
+        )
+    </update>
+
 </mapper>

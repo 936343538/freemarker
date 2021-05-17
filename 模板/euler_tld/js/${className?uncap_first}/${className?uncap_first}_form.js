@@ -88,13 +88,20 @@ define(["core_js/form/FormView",
                     {
                         name: "${column.columnName2}",
                         caption: "${column.columnComment}",
+                        <#if column.columnKey="1">
+                        hidden: true,
+                        </#if>
+                        <#if column.columnSize gt 99>
+                        editorType: FormView.Type.HTML_EDITOR,
+                        </#if>
                         <#if column.columnType="Date">
                         editorType: SimpleListView.EditorType.DATE_TIME_EDITOR,
                         displayFormat: "yyyy-MM-dd HH:mm:ss",
                         hiddenFormat: "yyyy-MM-dd HH:mm:ss",
                         </#if>
                         rules: {
-                            maxlength: ${column.columnSize}
+                            maxlength: ${column.columnSize},
+                            required: true,
                         },
                         value: ${className?uncap_first}.${column.columnName2} || ""
                     }<#if column_has_next>,</#if>

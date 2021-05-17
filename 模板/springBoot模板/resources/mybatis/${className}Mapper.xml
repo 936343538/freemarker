@@ -11,14 +11,31 @@
         </#if>
         </#list>
     </resultMap>
+    <update id="deleteBatch">
+        UPDATE ${table.name}
+        SET DATA_STATE = '0'
+        WHERE ${capId} IN(
+        <foreach collection="idList" item="item" index="index" separator=",">
+            ${r"#{item,jdbcType=VARCHAR}"}
+        </foreach>
+        )
+    </update>
     <sql id="Base_Column_List">
     <#list table.columns as column>
         ${column.columnName}<#if column_has_next>,</#if>
     </#list>
     </sql>
     <select id="selectPageWithParam" resultType="${package}.entity.${className}Entity">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from ${table.name}
+        FROM ${table.name}
+        WHERE DATA_STATE = '1'
+    <#list table.columns as column>
+        <#if column.columnName!="DATA_STATE">
+        <if test="entity.${column.columnName2} != null">
+        AND ${column.columnName} = ${r"#{"}entity.${column.columnName2}}
+        </if>
+        </#if>
+    </#list>
     </select>
 </mapper>

@@ -31,7 +31,7 @@ public class Column {
 	/**
 	 * 是否是主键
 	 */
-	private String columnSize;
+	private int columnSize;
 
 	public String getColumnName() {
 		return columnName;
@@ -81,11 +81,15 @@ public class Column {
 		this.columnKey = columnKey;
 	}
 
-	public String getColumnSize() {
+	public int getColumnSize() {
 		return columnSize;
 	}
 
-	public void setColumnSize(String columnSize) {
+	public void setColumnSize(int columnSize) {
 		this.columnSize = columnSize;
+	}
+
+	public void setColumnSize(String columnSize) {
+		this.columnSize = Integer.parseInt(columnSize);
 	}
 }

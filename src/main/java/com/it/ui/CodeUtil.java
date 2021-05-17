@@ -536,15 +536,23 @@ public class CodeUtil extends JFrame {
         //数据库类型，数据库名称，表名
         DataBase db = new DataBase(
                 "mysql",
-                "10.188.182.138",
+                "localhost",
                 "3306",
-                "euler_tld",
+                "zhifa",
                 //多张表之间用','分隔
-                "bf_coop_service_order,bf_coop_service_order_detail");
+                "bf_coop_service_appt");
+        //bf_coop_service_appt
+        //bf_coop_employee
+        //bf_coop_oper_sos
+        //bf_coop_oper_sos_audit
+        //bf_coop_service_comment
+        //bf_coop_service_order
+        //bf_coop_service_org
+        //bf_coop_service_ware
         db.setUserName("root");
-        db.setPassWord("root");
+        db.setPassWord("rootroot");
         new CodeUtil(db, null).setVisible(true);
-//            }
+        //            }
 //        });
     }
 

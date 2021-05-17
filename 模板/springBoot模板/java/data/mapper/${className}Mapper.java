@@ -1,8 +1,10 @@
 package ${package}.mapper;
 
 import ${package}.entity.${className}Entity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import com.github.pagehelper.Page;
+
+import java.util.List;
 
 /**
  * ${table.comment!}
@@ -12,5 +14,11 @@ import com.github.pagehelper.Page;
  */
 @Repository
 public interface ${className}Mapper extends BaseMapper<${className}Entity> {
+
+    /**
+     * 逻辑删除
+     * @param idList
+     */
+    void deleteBatch(@Param("idList") List<String> idList);
 
 }

@@ -118,6 +118,7 @@ public class DataBaseUtils {
                     column.setColumnName(columnName);
                     column.setColumnName2(StringUtils.toJavaVariableName(columnName));//属性名
                     String typeName = columns.getString("TYPE_NAME");//数据库类型
+                    typeName = getTypeName(typeName);
                     String tyName = MySql2JdbcTypeUtils.jdbcTypeMap.get(typeName);
                     column.setColumnDbType(tyName == null ? typeName : tyName);
                     column.setColumnType(PropertiesUtils.customMap.get(typeName));
@@ -141,6 +142,23 @@ public class DataBaseUtils {
             connection.close();
         }
         return list;
+    }
+
+    /**
+     * 针对数值类型包含非空要求的判定处理
+     *                     customMap.put("INT UNSIGNED","Integer");
+     *                     customMap.put("DECIMAL UNSIGNED","Integer");
+     * @param typeName
+     * @return
+     */
+    private static String getTypeName(String typeName) {
+        if (StringUtils.isNotBlank(typeName)) {
+            int i = typeName.indexOf("UNSIGNED");
+            if (i>0) {
+                return typeName.substring(0, i).trim();
+            }
+        }
+        return null;
     }
 
     private static String removePrefix(String tableName) {

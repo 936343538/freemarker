@@ -68,7 +68,7 @@ define(["core_js/grid/SimpleListView",
             pageable: true,
             columns: [
                 <#list table.columns as column>
-                {field: "${column.columnName2}", title: "${column.columnComment}", width: "100px"}<#if column_has_next>,</#if>
+                {field: "${column.columnName2}", title: "${column.columnComment}", width: "100px" <#if column.columnKey="1">, hidden: true</#if>}<#if column_has_next>,</#if>
                 </#list>
             ],
             actions: [

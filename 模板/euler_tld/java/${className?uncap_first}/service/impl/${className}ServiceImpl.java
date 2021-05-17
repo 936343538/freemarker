@@ -27,27 +27,33 @@ public class ${className}ServiceImpl extends BaseService implements ${className}
     @Autowired
     private ${className}Dao ${className?uncap_first}Dao;
 
+    @Override
     public Page<${className}> query(${className}QueryParam queryParam, Paging paging) {
         List<${className}> ${className!}List = ${className?uncap_first}Dao.queryByCriteria(queryParam.getCriteria(), MybatisHelper2.toRowBounds(paging));
         return MybatisHelper2.toPage(${className!}List, paging);
     }
 
+    @Override
     public ${className} get(String ${id}) {
         return ${className?uncap_first}Dao.selectByPrimaryKey(${id});
     }
 
+    @Override
     @Transactional
     public void deleteBatch(List<String> idList) {
         if (CollectionUtils.isNotEmpty(idList)) {
-            ${className?uncap_first}Dao.deleteBatch(idList);
+            //逻辑删除
+            ${className?uncap_first}Dao.updateBatch(idList);
         }
     }
 
+    @Override
     public void save(${className} ${className?uncap_first}) {
         ${className?uncap_first}.set${id?cap_first}(CodeUtils.uuid32());
         ${className?uncap_first}Dao.insert(${className?uncap_first});
     }
 
+    @Override
     public void update(${className} ${className?uncap_first}) {
         ${className?uncap_first}Dao.updateByPrimaryKey(${className?uncap_first});
     }
