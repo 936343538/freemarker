@@ -26,55 +26,55 @@ public class ${className}ServiceImpl
         extends BaseServiceImpl<${className}EntityMapper, ${className}Mapper, ${className}Entity>
         implements ${className}Service {
 
-        /**
-         * 对象添加
-         *
-         * @param entity
-         * @return
-         */
-        @Override
-        public Boolean insert(${className}Entity entity) {
-                entity.set${id?cap_first}(CodeUtils.uuid32());
-                return super.insert(entity);
-        }
+    /**
+     * 对象添加
+     *
+     * @param entity
+     * @return
+     */
+    @Override
+    public Boolean insert(${className}Entity entity) {
+        entity.set${id?cap_first}(CodeUtils.uuid32());
+        return super.insert(entity);
+    }
 
-        /**
-         * 分页查询
-         *
-         * @param pageNum
-         * @param pageSize
-         * @param query
-         * @return
-         */
-        @Override
-        public PageInfo<${className}Entity> listPage(int pageNum, int pageSize, ${className}Query query) {
-                PageHelper.startPage(pageNum, pageSize);
-                return list(query);
-        }
+    /**
+     * 分页查询
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param query
+     * @return
+     */
+    @Override
+    public PageInfo<${className}Entity> listPage(int pageNum, int pageSize, ${className}Query query) {
+        PageHelper.startPage(pageNum, pageSize);
+        return list(query);
+    }
 
-        /**
-         * 查询列表
-         *
-         * @param query
-         * @return
-         */
-        @Override
-        public PageInfo<${className}Entity> list(${className}Query query) {
-                Page<${className}Entity> page = baseMapper.selectPageWithParam(query);
-                return page.toPageInfo();
-        }
+    /**
+     * 查询列表
+     *
+     * @param query
+     * @return
+     */
+    @Override
+    public PageInfo<${className}Entity> list(${className}Query query) {
+        Page<${className}Entity> page = baseMapper.selectPageWithParam(query);
+        return page.toPageInfo();
+    }
 
-        /**
-         * 逻辑删除
-         *
-         * @param idList
-         */
-        @Override
-        @Transactional
-        public void deleteBatch(List<String> idList) {
-                if (ObjectUtil.isNotEmpty(idList)) {
-                        //逻辑删除
-                        baseMapper.deleteBatch(idList);
-                }
+    /**
+     * 逻辑删除
+     *
+     * @param idList
+     */
+    @Override
+    @Transactional
+    public void deleteBatch(List<String> idList) {
+        if (ObjectUtil.isNotEmpty(idList)) {
+            //逻辑删除
+            baseMapper.deleteBatch(idList);
         }
+    }
 }
