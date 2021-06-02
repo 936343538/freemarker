@@ -11,6 +11,9 @@ public class ${className}Entity extends BaseEntity {
     private static final long serialVersionUID = -1L;
 
     <#list table.columns as column>
+        <#if column.columnName="DATA_STATE">
+            <#break>
+        </#if>
     /**
      * ${column.columnComment}<#if column.columnKey="1">[主键]</#if>
      */
@@ -18,7 +21,9 @@ public class ${className}Entity extends BaseEntity {
     </#list>
 
     <#list table.columns as column>
-
+        <#if column.columnName="DATA_STATE">
+            <#break>
+        </#if>
     public ${column.columnType} get${column.columnName2?cap_first}() {
         return this.${column.columnName2};
     }

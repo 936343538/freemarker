@@ -58,6 +58,24 @@ define(["core_js/grid/SimpleListView",
                 }
             ]
         },
+        searchBox: {
+            queryMode: SimpleListView.QueryMode.REALTIME,
+            fields: [
+                <#list table.columns as column>
+                <#if column.columnName="DATA_STATE">
+                <#break>
+                </#if>
+                <#if column.columnKey="0">
+                {
+                    name: "${column.columnName2}",
+                    width: 120,
+                    more: true,
+                    caption: "${column.columnComment}",
+                }<#if column_has_next>,</#if>
+                    </#if>
+                </#list>
+            ],
+        },
         grid: {
             ajaxClient: ApplicationContext.get("ropClient"),
             methodName: "${className?uncap_first}.list.get",

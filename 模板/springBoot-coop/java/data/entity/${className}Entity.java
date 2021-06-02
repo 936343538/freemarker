@@ -20,6 +20,9 @@ public class ${className}Entity extends BaseCoopEntity {
     private static final long serialVersionUID = -1L;
 
     <#list table.columns as column>
+        <#if column.columnName="DATA_STATE">
+            <#break>
+        </#if>
     /**
      * ${column.columnComment}<#if column.columnKey="1">[主键]</#if>
      */
